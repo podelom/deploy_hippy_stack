@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  role_name: grafana_as_a_container
+  author: 'Evgeny Barnaev'
+  description: 'Deploy Grafana in a docker container'
+  license: BSD
+  min_ansible_version: '2.10'
+
+  platforms:
+  - name: Ubuntu
+    versions:
+    - focal
+
+  categories:
+  - system
+
+dependencies: []
+allow_duplicates: yes 

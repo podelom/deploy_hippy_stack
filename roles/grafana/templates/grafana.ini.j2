@@ -1,0 +1,110 @@
+app_mode = production
+[paths]
+data = /var/lib/grafana
+temp_data_lifetime = 24h
+logs = /var/log/grafana
+plugins = /var/lib/grafana/plugins
+
+[server]
+protocol = {{ grafana_protocol }}
+http_addr =
+http_port = {{ grafana_port }}
+root_url = https://{{ inventory_hostname }}/
+
+[database]
+log_queries =
+
+[session]
+# Either "memory", "file", "redis", "mysql", "postgres", default is "file"
+provider = {{ grafana_provider }}
+
+# memory: not have any config yet
+# file: session dir path, is relative to grafana data_path
+# redis: config like redis server e.g. `addr=127.0.0.1:6379,pool_size=100,db=grafana`
+# mysql: go-sql-driver/mysql dsn config string, e.g. `user:password@tcp(127.0.0.1:3306)/database_name`
+# postgres: user=a password=b host=localhost port=5432 dbname=c sslmode=disable
+provider_config = sessions
+
+cookie_name = grafana_sess
+
+session_life_time = 86400
+
+[dataproxy]
+
+[analytics]
+check_for_updates = true
+
+[security]
+admin_user = admin
+
+admin_password =
+
+[snapshots]
+
+[dashboards]
+
+[users]
+allow_sign_up = true
+allow_org_create = true
+
+[auth]
+
+[auth.anonymous]
+
+[auth.github]
+
+[auth.google]
+
+[auth.generic_oauth]
+
+[auth.grafana_com]
+
+[auth.proxy]
+
+[auth.basic]
+
+[auth.ldap]
+enabled = false
+config_file = 
+allow_sign_up = 
+
+[smtp]
+enabled = false
+host = 
+
+[emails]
+welcome_email_on_sign_up = true
+
+[log]
+
+[log.console]
+
+[log.file]
+
+[log.syslog]
+
+[alerting]
+
+[explore]
+
+[metrics]
+
+[metrics.graphite]
+
+[tracing.jaeger]
+
+[grafana_com]
+
+[external_image_storage]
+
+[external_image_storage.s3]
+
+[external_image_storage.webdav]
+
+[external_image_storage.gcs]
+
+[external_image_storage.azure_blob]
+
+[external_image_storage.local]
+
+[rendering]

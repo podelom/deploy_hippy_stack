@@ -1,0 +1,36 @@
+---
+- name: create directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ docker_grafana_uid }}"
+    group: "{{ docker_grafana_gid }}"
+  loop:
+    - "{{ docker_grafana_working_directory }}"
+    - "{{ docker_grafana_configuration_directory }}"
+
+- name: Generate configuration files
+  template:
+    src: "{{ item.name }}"
+    dest: "{{ item.destination }}"
+    owner: "{{ docker_grafana_uid }}"
+    group: "{{ docker_grafana_gid }}"
+    mode: 0644
+  loop: "{{ docker_grafana_configuration_files }}"
+  notify: restart grafana
+
+
+
+- name: setup Grafana container
+  docker_container:
+    name: "{{ docker_grafana_container_name }}"
+    image: "{{ docker_grafana_container_image }}:{{ docker_grafana_container_image_tag | default('latest') }}"
+    state: started
+    network_mode: host
+    env: "{{ docker_grafana_envs }}"
+    restart_policy: "{{ docker_grafana_restart_policy | default('always') }}"
+    exposed_ports: "{{ grafana_port }}"
+    container_default_behavior: no_defaults
+    volumes:
+      - "{{ docker_grafana_working_directory }}:/var/lib/grafana:rw"
+      - "{{ docker_grafana_configuration_directory }}:/etc/grafana"

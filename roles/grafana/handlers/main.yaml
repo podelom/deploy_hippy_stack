@@ -1,0 +1,5 @@
+---
+- name: restart grafana
+  docker_container:
+    name: "{{ docker_grafana_container_name }}"
+    restart: "true"

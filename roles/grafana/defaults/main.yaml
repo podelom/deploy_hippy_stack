@@ -1,0 +1,25 @@
+---
+docker_grafana_container_image: 'grafana/grafana'
+docker_grafana_container_image_tag: 'latest'
+docker_grafana_container_image_name: 'grafana'
+docker_grafana_container_name: 'grafana'
+docker_grafana_volume_name: 'grafana'
+docker_grafana_restart_policy: 'always'
+docker_grafana_envs: {}
+
+grafana_protocol: http
+grafana_port: 3000
+grafana_provider: file
+
+
+
+docker_grafana_working_directory: /opt/grafana/data
+docker_grafana_configuration_directory: /etc/grafana
+docker_grafana_uid: '472'
+docker_grafana_gid: '0'
+
+
+# files
+docker_grafana_configuration_files:
+  - name: grafana.ini.j2
+    destination: /etc/grafana/grafana.ini
