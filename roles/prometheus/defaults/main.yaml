@@ -1,0 +1,15 @@
+# vars file for prometheus-docker
+prometheus_image: prom/prometheus
+prometheus_volume_source: /opt/prometheus/data
+prometheus_volume_target: /prometheus-data
+prometheus_volume_mountinstruction: "{{prometheus_volume_source}}:{{ prometheus_volume_target }}"
+prometheus_container_name: prometheus
+prometheus_rule_file_name: alerts.yaml
+prometheus_rule_file_location: "{{ prometheus_volume_target }}/{{ prometheus_rule_file_name }}"
+prometheus_commandline_args:
+  config.file: "{{ prometheus_volume_target }}/prometheus.yml"
+  storage.tsdb.path: "{{ prometheus_volume_target}}/data"
+
+alert_manager_container_image: prom/alertmanager
+prometheus_node_exporter_container_name: node_exporter 
+alert_manager_container_name: alert_manager

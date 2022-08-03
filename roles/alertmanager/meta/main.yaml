@@ -1,8 +1,8 @@
 ---
 galaxy_info:
-  role_name: grafana_as_a_container
+  role_name: alert_manager_as_a_container
   author: 'Evgeny Barnaev'
-  description: 'Deploy Grafana in a docker container'
+  description: 'Deploy alert manager in a docker container'
   license: BSD
   min_ansible_version: '2.10'
 
@@ -17,6 +17,6 @@ galaxy_info:
 
 
   galaxy_tags: 
-    - grafana
+  - alert_manager
 dependencies: []
 allow_duplicates: yes 

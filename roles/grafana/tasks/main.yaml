@@ -26,11 +26,20 @@
     name: "{{ docker_grafana_container_name }}"
     image: "{{ docker_grafana_container_image }}:{{ docker_grafana_container_image_tag | default('latest') }}"
     state: started
-    network_mode: host
+    published_ports:
+      - 3000:3000
     env: "{{ docker_grafana_envs }}"
     restart_policy: "{{ docker_grafana_restart_policy | default('always') }}"
-    exposed_ports: "{{ grafana_port }}"
     container_default_behavior: no_defaults
     volumes:
       - "{{ docker_grafana_working_directory }}:/var/lib/grafana:rw"
       - "{{ docker_grafana_configuration_directory }}:/etc/grafana"
+      - "{{ docker_grafana_datasource_source}}:/etc/grafana/provisioning/datasources"
+
+- name: Copy datasource file to grafana
+  template:
+    src: datasources.yaml.j2
+    dest: "{{ docker_grafana_datasource_source }}"  
+    owner: root
+    mode: 0644
+  notify: restart grafana

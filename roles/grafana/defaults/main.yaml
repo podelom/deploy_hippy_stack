@@ -15,6 +15,7 @@ grafana_provider: file
 
 docker_grafana_working_directory: /opt/grafana/data
 docker_grafana_configuration_directory: /etc/grafana
+docker_grafana_datasource_source: /opt/grafana/datasources.yml
 docker_grafana_uid: '472'
 docker_grafana_gid: '0'
 
@@ -23,3 +24,5 @@ docker_grafana_gid: '0'
 docker_grafana_configuration_files:
   - name: grafana.ini.j2
     destination: /etc/grafana/grafana.ini
+
+prometheus_container_name: prometheus

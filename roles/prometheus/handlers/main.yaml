@@ -1,0 +1,15 @@
+
+- name: Restart prometheus container
+  docker_container:
+      name: "{{ prometheus_container_name }}"
+      image: "{{ prometheus_image }}"
+      command: "{% for key in prometheus_commandline_args %}--{{key}}={{prometheus_commandline_args[key]}} {% endfor %}"
+      restart: yes 
+      published_ports:
+        - 9090:9090
+      volumes:
+        - "{{ prometheus_volume_mountinstruction }}"
+      links:
+        - "{{ prometheus_node_exporter_container_name }}" 
+        - "{{ alert_manager_container_name }}"
+      restart_policy: always

@@ -1,8 +1,8 @@
 ---
 galaxy_info:
-  role_name: grafana_as_a_container
+  role_name: prometheus_as_a_container
   author: 'Evgeny Barnaev'
-  description: 'Deploy Grafana in a docker container'
+  description: 'Deploy Prometheusin a docker container'
   license: BSD
   min_ansible_version: '2.10'
 
@@ -17,6 +17,6 @@ galaxy_info:
 
 
   galaxy_tags: 
-    - grafana
+  - prometheuss
 dependencies: []
 allow_duplicates: yes 

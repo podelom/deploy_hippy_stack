@@ -1,0 +1,7 @@
+- name: Install AlertManager
+  hosts: hippy_server
+  become: yes
+  become_user: root
+
+  roles:
+    - alertmanager
