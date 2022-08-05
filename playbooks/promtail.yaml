@@ -1,0 +1,13 @@
+---
+- hosts: hippy_server
+  roles:
+    - role: patrickjahns.promtail
+      vars:
+        promtail_config_scrape_configs:
+          - job_name: system
+            static_configs:
+            - targets:
+                - localhost
+              labels:
+                job: varlogs
+                __path__: /var/log/*log

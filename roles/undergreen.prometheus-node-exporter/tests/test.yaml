@@ -1,0 +1,5 @@
+---
+- hosts: hippy_server
+  remote_user: root
+  roles:
+    - ansible-prometheus-node-exporter

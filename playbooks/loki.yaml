@@ -1,0 +1,7 @@
+- name: Install Loki
+  hosts: hippy_server
+  become: yes
+  become_user: root
+
+  roles:
+    - aboveops.ct_grafana_loki

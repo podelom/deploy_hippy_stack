@@ -1,0 +1,38 @@
+---
+- name: "{{ ct_grafana_loki_task_prefix }} Load exposed ports"
+  include_vars: "loki_ports.yml"
+  when: ct_grafana_loki_enable_ports
+- name: "{{ ct_grafana_loki_task_prefix }} Load persist data flag"
+  include_vars: "persist_data.yml"
+  when: ct_grafana_loki_persist_data
+- name: "{{ ct_grafana_loki_task_prefix }} Create base directories"
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+    recurse: true
+  loop:
+    - "{{ ct_grafana_loki_path_config_base }}"
+    - "{{ ct_grafana_loki_path_base }}"
+- name: "{{ ct_grafana_loki_task_prefix }} Create Loki data directory"
+  file:
+    path: "{{ ct_grafana_loki_path_data }}"
+    state: directory
+    mode: '0755'
+    recurse: true
+    owner: "{{ ct_grafana_loki_uid }}"
+    group: "{{ ct_grafana_loki_gid }}"
+- name: "{{ ct_grafana_loki_task_prefix }} Create container"
+  docker_container:
+    name: "{{ ct_grafana_loki_ct_name }}"
+    image: "{{ ct_grafana_loki_ct_image }}:{{ ct_grafana_loki_ct_version }}"
+    restart_policy: "{{ ct_grafana_loki_ct_restart_policy }}"
+    state: "{{ ct_grafana_loki_ct_state }}"
+    restart: "{{ ct_grafana_loki_ct_restart }}"
+    pull: "{{ ct_grafana_loki_ct_pull }}"
+    recreate: "{{ ct_grafana_loki_ct_recreate }}"
+    ports: "{{ ct_grafana_loki_ct_ports }}"
+    command: "{{ ct_grafana_loki_ct_command }}"
+    container_default_behavior: "no_defaults"
+    volumes: "{{ ct_grafana_loki_ct_volumes }}"
+...

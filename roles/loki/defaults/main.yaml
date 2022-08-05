@@ -1,0 +1,3 @@
+  loki: 
+    ip: 172.18.0.72
+    image: grafana/loki:2.6.1
