@@ -18,3 +18,7 @@ loki 3100
 prometheus 9090
 alertmanager 9093
 ```
+
+Grafana dashboards:
+Cadvisor exporter: 14282
+node-exporter-full: 1860
