@@ -1,11 +1,11 @@
 # deploy_hippy_stack
 
-if run playebook on mac m1:
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+if run playebook on mac m1:<br>
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES <br>
 
-ansible-playbook -i environments playbooks/{{appropriate_playbook}}.yaml
-OR
-ansible-playbook -i environments playbooks/master.yaml
+ansible-playbook -i environments playbooks/{{appropriate_playbook}}.yaml <br>
+OR <br>
+ansible-playbook -i environments playbooks/master.yaml <br>
 
 
 Destination resources:
