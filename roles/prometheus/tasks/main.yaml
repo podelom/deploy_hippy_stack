@@ -11,6 +11,14 @@
     - Restart prometheus container
 
 
+- name: get host's external IP address
+  # See http://www.commandlinefu.com/commands/view/5427/get-your-external-ip-address
+  # for alternatives to this command
+  command: curl --silent --fail http://ifconfig.me/ip
+  register: host_external_ip
+
+- set_fact: external_ip_address="{{host_external_ip.stdout}}"
+
 - name: Copy config file
   #become: yes
   template:
@@ -42,7 +50,4 @@
       - 9090:9090
     volumes:
       - "{{ prometheus_volume_mountinstruction }}" 
-    links:
-      - "{{ prometheus_node_exporter_container_name }}" 
-      - "{{ alert_manager_container_name }}"
     restart_policy: always

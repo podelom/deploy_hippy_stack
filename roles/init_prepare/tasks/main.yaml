@@ -1,0 +1,37 @@
+- name: get host's external IP address
+  # See http://www.commandlinefu.com/commands/view/5427/get-your-external-ip-address
+  # for alternatives to this command
+  command: curl --silent --fail http://ifconfig.me/ip
+  register: host_external_ip
+
+- set_fact: external_ip="{{host_external_ip.stdout}}"
+
+- name: Add IP address to hosts
+  lineinfile:
+    path: /etc/hosts
+    line: "{{ external_ip }} {{ inventory_hostname }}"
+    state: present
+
+#- name: Install grafana's docker_logs plugin
+#  community.docker.docker_plugin:
+#    plugin_name: "grafana/loki-docker-driver:latest"
+#    state: absent
+#    alias: loki
+#  notify: 
+#    - restart docker
+
+- name: install docker logs plugin shell
+  ansible.builtin.shell: docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions || /bin/true
+
+
+  notify: 
+    - restart docker
+    
+- name: copy config file
+  template:
+        src: daemon.json.j2
+        dest: "/etc/docker/daemon.json"
+        owner: root
+        mode: 0666 
+  notify: 
+    - restart docker

@@ -85,6 +85,16 @@
     dest: /usr/local/bin/promtail
     mode: 0755
 
+- name: get host's external IP address
+  # See http://www.commandlinefu.com/commands/view/5427/get-your-external-ip-address
+  # for alternatives to this command
+  command: curl --silent --fail http://ifconfig.me/ip
+  register: host_external_ip
+
+- set_fact: 
+    external_ip_address: "http://{{host_external_ip.stdout}}:3100/loki/api/v1/push"
+
+
 - name: Write config
   notify:
     - Restart promtail

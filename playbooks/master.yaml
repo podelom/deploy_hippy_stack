@@ -1,0 +1,8 @@
+- import_playbook: prepare-host.yaml
+- import_playbook: promtail.yaml
+- import_playbook: loki.yaml
+- import_playbook: grafana.yaml
+- import_playbook: node-exporte-hosted.yaml
+- import_playbook: cadvisor.yaml
+- import_playbook: alertmanager.yaml
+- import_playbook: prometheus.yaml

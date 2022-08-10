@@ -1,6 +1,5 @@
 ---
 - name: ensure alert_manager directory owner is nobody
-  #become: yes
   file:
     path: "{{ alert_manager_volume_source}}"
     owner: root
@@ -8,8 +7,15 @@
     mode: 0755 
     state: directory 
 
+- name: get host's external IP address
+  # See http://www.commandlinefu.com/commands/view/5427/get-your-external-ip-address
+  # for alternatives to this command
+  command: curl --silent --fail http://ifconfig.me/ip
+  register: host_external_ip
+
+- set_fact: external_ip_address="{{host_external_ip.stdout}}"
+
 - name: Copy alert_manager config file
-  #become: yes
   template: 
     src: alert_manager.yml.j2
     dest: "{{ alert_manager_volume_source}}/{{ alert_manager_config_file_name }}"
@@ -17,13 +23,12 @@
     mode: 0644
 
 - name: Start alert_manager container
-  #become: yes
   docker_container:
     name: "{{ alert_manager_container_name }}"
     hostname: "{{ alert_manager_container_name }}"
     image: "{{ alert_manager_container_image }}"
     volumes:
-      - "/srv/alert_manager/alert_manager.yml:/etc/alertmanager/config.yml"
+      - "/opt/alert_manager/alert_manager.yml:/opt/bitnami/alertmanager/conf/config.yml"
     published_ports:
       - 9093:9093
-    restart_policy: always
+    restart_policy: always  

@@ -1,4 +1,4 @@
-alert_manager_container_image: prom/alertmanager
+alert_manager_container_image: bitnami/alertmanager
 alert_manager_container_name: alert_manager
 alert_manager_smtp_server: smtp.gmail.com:587 
 alert_manager_destination_email: root@localhost 
@@ -9,3 +9,4 @@ alert_manager_config_file_name: alert_manager.yml
 alert_manager_volume_source: /opt/alert_manager
 alert_manager_volume_target: /etc/alertmanager/config.yml 
 alert_manager_volume_mountinstructions: "{{ alert_manager_volume_source }}/{{alert_manager_config_file_name}}:{{alert_manager_volume_target }}"
+telegram_chat_id: "-606357827"

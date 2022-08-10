@@ -36,10 +36,20 @@
       - "{{ docker_grafana_configuration_directory }}:/etc/grafana"
       - "{{ docker_grafana_datasource_source}}:/etc/grafana/provisioning/datasources"
 
-- name: Copy datasource file to grafana
+- name: get host's external IP address
+  # See http://www.commandlinefu.com/commands/view/5427/get-your-external-ip-address
+  # for alternatives to this command
+  command: curl --silent --fail http://ifconfig.me/ip
+  register: host_external_ip
+
+- set_fact: external_ip_address="{{host_external_ip.stdout}}"
+
+- name: set datasources
   template:
-    src: datasources.yaml.j2
-    dest: "{{ docker_grafana_datasource_source }}"  
-    owner: root
+    src: "{{ item.name }}"
+    dest: "{{ item.destination }}"
+    owner: "{{ docker_grafana_uid }}"
+    group: "{{ docker_grafana_gid }}"
     mode: 0644
+  loop: "{{ docker_grafana_datasource_files }}"
   notify: restart grafana

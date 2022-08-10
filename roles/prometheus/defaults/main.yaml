@@ -10,6 +10,7 @@ prometheus_commandline_args:
   config.file: "{{ prometheus_volume_target }}/prometheus.yml"
   storage.tsdb.path: "{{ prometheus_volume_target}}/data"
 
-alert_manager_container_image: prom/alertmanager
+alert_manager_container_image: bitnami/alertmanager
 prometheus_node_exporter_container_name: node_exporter 
+prometheus_node_exporter_link: "{{ inventory_hostname }}"
 alert_manager_container_name: alert_manager

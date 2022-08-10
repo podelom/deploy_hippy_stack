@@ -9,7 +9,4 @@
         - 9090:9090
       volumes:
         - "{{ prometheus_volume_mountinstruction }}"
-      links:
-        - "{{ prometheus_node_exporter_container_name }}" 
-        - "{{ alert_manager_container_name }}"
       restart_policy: always

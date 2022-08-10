@@ -1,7 +1,0 @@
-- name: Install Node Exporter
-  hosts: hippy_server
-  become: yes
-  become_user: root
-
-  roles:
-    - node-exporter

@@ -1,3 +1,5 @@
 *.key
 vault.key
 .ansible
+.nopublicate
+*.nopublicate

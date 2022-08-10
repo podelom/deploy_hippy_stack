@@ -40,3 +40,10 @@ groups:
     annotations:
       description: 'RAM usage is reaching a critical high on {{ $labels.instance }} for the past 20 minutes.' 
       title: 'RAM usage is reaching a critical high on {{ $labels.instance }} for the past 20 minutes.'
+  - alert: AlarmAmountContainers
+    expr: count(container_fs_inodes_total{id =~ "/docker/.*"}) > 4
+    labels:
+      severity: critical
+    annotations:
+      description: 'Too many containers!' 
+      title: 'Alarm!'

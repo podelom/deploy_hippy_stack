@@ -10,7 +10,7 @@ docker_grafana_envs: {}
 grafana_protocol: http
 grafana_port: 3000
 grafana_provider: file
-
+grafana_url: "{{ inventory_hostname }}"
 
 
 docker_grafana_working_directory: /opt/grafana/data
@@ -24,5 +24,9 @@ docker_grafana_gid: '0'
 docker_grafana_configuration_files:
   - name: grafana.ini.j2
     destination: /etc/grafana/grafana.ini
+
+docker_grafana_datasource_files:
+  - name: datasources.yaml.j2
+    destination: /etc/grafana/provisioning/datasources/default.yaml
 
 prometheus_container_name: prometheus
