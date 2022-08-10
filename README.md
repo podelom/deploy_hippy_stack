@@ -9,6 +9,7 @@ ansible-playbook -i environments playbooks/master.yaml
 
 
 Destination resources:
+```
 promtail 9080
 node-exporter 9100
 cadvisor 9280
@@ -16,3 +17,4 @@ grafana 3000
 loki 3100
 prometheus 9090
 alertmanager 9093
+```
